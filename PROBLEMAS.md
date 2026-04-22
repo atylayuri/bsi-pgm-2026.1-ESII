@@ -13,7 +13,7 @@ Não é necessário usar termos técnicos neste momento.
 
 - Nas primeris linhas do código foi definidas duas variaveis globais que são 'equipamentos' e 'emprestimos_registrados', mas elas estão fora da classe Sistema, e isso faz com que o programa acesse os dados de forma direta de forma prioriataria onde pode causar alguns bugs de interação.
 
-- A partir da "linha 98" deveria sepapar a parte do menu do arquivo e a lágica do sistema, não é interresante a obordagem que foi implementada.
+- A partir da 'linha 98' deveria sepapar a parte do menu do arquivo e a lágica do sistema, não é interresante a obordagem que foi implementada.
 
 - Erro na hora de um adicionar equipamento novo, devido as regras do if/else, tendo que adicionar manualmente para poder funcionar igual os items já cadastrados.
 
