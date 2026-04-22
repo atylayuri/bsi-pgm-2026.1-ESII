@@ -7,15 +7,17 @@ Não é necessário usar termos técnicos neste momento.
 ---
 
 ## Minha leitura inicial
+"Na parte do código de imprestimo, ele duplica o cálculo de multa que já foi estabelecido usando if/elif."
 
-*(Espaço reservado para o estudante preencher)*
+- "As mensagens que simulam o envio de e-mails estão misturadas com as contas matemáticas do sistema, isso impede de testar as regras sozinhas"
 
-Exemplo de entradas:
-- "A classe faz muita coisa ao mesmo tempo"
-- "Tem código de e-mail misturado com o cálculo de multa"
-- "O mesmo cálculo aparece duas vezes no código"
-- "As listas de equipamentos estão fora da classe, soltas no arquivo"
+- "Nas primeris linhas do código foi definidas duas variaveis globais que são "equipamentos" e "emprestimos_registrados", mas elas estão fora da classe Sistema, e isso faz com que o programa acesse os dados de forma direta de forma prioriataria onde pode causar alguns bugs de interação."
 
+- "A partir da "linha 98" deveria sepapar a parte do menu do arquivo e a lágica do sistema, não é interresante a obordagem que foi implementada."
+
+- "Erro na hora de um adicionar equipamento novo, devido as regras do if/else, tendo que adicionar manualmente para poder funcionar igual os items já cadastrados."
+
+- "Não tem foi colocado nem uma função de teste descrito na documentação devido o código está junto e misturado."
 ---
 
 ## Revisão com vocabulário técnico
