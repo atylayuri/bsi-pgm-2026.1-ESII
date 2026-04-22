@@ -17,7 +17,7 @@ Não é necessário usar termos técnicos neste momento.
 
 - "Erro na hora de um adicionar equipamento novo, devido as regras do if/else, tendo que adicionar manualmente para poder funcionar igual os items já cadastrados."
 
-- "Não foi colocado nem uma função de teste descrito na documentação devido o código está junto e misturado."
+- "Não foi colocado nem uma função de teste descrito na documentação, então já que o código está junto e misturado não é possivel testar a regras sem acessar a função inteira."
 ---
 
 ## Revisão com vocabulário técnico
