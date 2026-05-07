@@ -1,0 +1,9 @@
+class Notificador:
+    def notificar_emprestimo(self, email: str, data_devolucao) -> None:
+        ...
+
+    def notificar_devolucao(self, email: str, multa: float) -> None:
+        ...
+
+    def notificar_atraso(self, email: str) -> None:
+        ...
