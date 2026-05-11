@@ -98,7 +98,7 @@ A partir do ADR-001 (camadas) e UC01–UC03:
 
 ### (a) Pontos frágeis no `docs/projeto.md`
 
-1. **DP02 (estrutura monolítica).** O documento registra que "todas as
+1. **DP01 (estrutura monolítica).** O documento registra que "todas as
    funcionalidades estão concentradas em uma única classe `Sistema`".
    Em vocabulário de Valente: a classe `Sistema` tem **baixa coesão**
    (múltiplos motivos para mudar — regras de empréstimo, cálculo de
@@ -107,7 +107,7 @@ A partir do ADR-001 (camadas) e UC01–UC03:
    reconhece o fato mas o classifica como "decisão de projeto", quando
    é uma fragilidade estrutural.
 
-2. **DT04 (notificação acoplada à lógica).** Registrado como dívida, mas
+2. **DT03 (notificação acoplada à lógica).** Registrado como dívida, mas
    o documento não nomeia o problema com precisão: trata-se de **alta
    dependência entre módulos**. Mudar o canal de notificação (e-mail →
    SMS) força mudanças em todos os métodos do `Sistema` que notificam.
