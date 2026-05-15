@@ -1,14 +1,14 @@
 import datetime
-from models.equipamento import Equipamento
+from models.equipamento import Notebook, Projetor, Cabo
 from models.emprestimo import Emprestimo
 
 
 class RepositorioEmprestimo:
     def __init__(self):
         self._equipamentos = [
-            Equipamento(1, "Notebook Dell",  "notebook"),
-            Equipamento(2, "Projetor Epson", "projetor"),
-            Equipamento(3, "Cabo HDMI",      "cabo"),
+            Notebook(1, "Notebook Dell",  "notebook"),
+            Projetor(2, "Projetor Epson", "projetor"),
+            Cabo(3,     "Cabo HDMI",      "cabo"),
         ]
         self._emprestimos = []
 

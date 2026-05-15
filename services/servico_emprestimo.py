@@ -40,18 +40,10 @@ class ServicoEmprestimo:
             print("Empréstimo inválido ou já devolvido")
             return
 
-        hoje   = datetime.date.today()
-        atraso = (hoje - emprestimo.data_devolucao).days
-
-        # if/elif pendente — será corrigido com OCP na Aula 5
-        multa = 0.0
-        if atraso > 0:
-            if emprestimo.tipo == "notebook":
-                multa = atraso * 10.0
-            elif emprestimo.tipo == "projetor":
-                multa = atraso * 15.0
-            elif emprestimo.tipo == "cabo":
-                multa = atraso * 2.0
+        hoje      = datetime.date.today()
+        atraso    = (hoje - emprestimo.data_devolucao).days
+        equipamento = self.repositorio.buscar_equipamento(emprestimo.equipamento_id)
+        multa     = equipamento.calcular_multa(atraso)
 
         self.repositorio.marcar_devolvido(emprestimo_id)
         self.repositorio.marcar_disponivel(emprestimo.equipamento_id)
@@ -65,14 +57,8 @@ class ServicoEmprestimo:
             print("Nenhum empréstimo em atraso.")
             return
         for emprestimo in atrasados:
-            atraso = (hoje - emprestimo.data_devolucao).days
-            # cálculo duplicado — será corrigido na Aula 5
-            multa = 0.0
-            if emprestimo.tipo == "notebook":
-                multa = atraso * 10.0
-            elif emprestimo.tipo == "projetor":
-                multa = atraso * 15.0
-            elif emprestimo.tipo == "cabo":
-                multa = atraso * 2.0
+            atraso      = (hoje - emprestimo.data_devolucao).days
+            equipamento = self.repositorio.buscar_equipamento(emprestimo.equipamento_id)
+            multa       = equipamento.calcular_multa(atraso)
             print(f"{emprestimo.usuario_nome} — {atraso} dias — R${multa:.2f}")
             self.notificador.notificar_atraso(emprestimo.usuario_email)
