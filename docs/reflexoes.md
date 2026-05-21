@@ -49,3 +49,48 @@ mais robusta seria separar a política de cobrança do tipo de
 equipamento, talvez com um objeto `PoliticaMulta` injetado em
 `Equipamento`. Com os tipos atuais — fixos e estáveis — a hierarquia
 presente é suficiente e não exige reestruturação.
+
+## Aula 06 — Verificação de LSP
+
+O contrato de `Equipamento.calcular_multa(dias_atraso: int) -> float`
+estabelece retorno do tipo `float >= 0.0`, sem lançamento de exceção.
+
+**`Notebook`:** `calcular_multa(0)` → `max(0.0, 0 * 10.0)` = `0.0` ✓;
+`calcular_multa(-5)` → `max(0.0, -50.0)` = `0.0` ✓. Nenhuma exceção
+possível. LSP satisfeito.
+
+**`Projetor`:** `calcular_multa(0)` → `0.0` ✓; `calcular_multa(-5)` →
+`0.0` ✓. LSP satisfeito.
+
+**`Cabo`:** `calcular_multa(0)` → `0.0` ✓; `calcular_multa(-5)` →
+`0.0` ✓. LSP satisfeito.
+
+As três subclasses honram o contrato. O `ServicoEmprestimo` pode
+receber qualquer `Equipamento` e chamar `calcular_multa` com qualquer
+inteiro sem risco de exceção ou valor negativo.
+
+## Aula 06 — DIP
+
+Antes da alteração, o `ServicoEmprestimo` criava internamente seu
+repositório e seu notificador. Isso significa que ele não apenas
+*usava* essas dependências — ele *decidia qual* usar. A dependência
+era unidirecional e apontava para baixo: a camada de serviço
+controlava quem a implementava.
+
+Com a injeção, essa relação se inverte. O `ServicoEmprestimo` agora
+descreve o que precisa (um objeto com `buscar_equipamento`,
+`salvar_emprestimo` etc.; outro com `notificar_*`) sem determinar quem
+vai fornecê-lo. Quem instancia e injeta passa a ser o `main.py`.
+Valente (Cap. 5) descreve exatamente esse movimento: módulos de alto
+nível não devem depender de módulos de baixo nível; ambos devem
+depender de abstrações.
+
+A mudança não é só técnica. Conceitualmente, o `ServicoEmprestimo`
+deixou de ser criador de infraestrutura e se tornou consumidor de
+contratos. Quem decide agora é a camada mais externa — `main.py` —
+que escolhe qual repositório e qual notificador fornecer. Na prática,
+isso abre espaço para instanciar o serviço com um `RepositorioFalso`
+que armazena dados em listas e um `NotificadorFalso` que registra
+chamadas em vez de enviar e-mails. As regras de negócio ficam isoladas
+da infraestrutura, que era exatamente o que o RNF02 exigia e que a
+Aula 5 ainda não resolvia por completo.

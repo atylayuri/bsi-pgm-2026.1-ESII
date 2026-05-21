@@ -1,13 +1,11 @@
 import datetime
 from models.emprestimo import Emprestimo
-from repositories.repositorio_emprestimo import RepositorioEmprestimo
-from services.notificador import Notificador
 
 
 class ServicoEmprestimo:
-    def __init__(self):
-        self.repositorio = RepositorioEmprestimo()  # DIP pendente — Aula 6
-        self.notificador = Notificador()             # DIP pendente — Aula 6
+    def __init__(self, repositorio, notificador):
+        self.repositorio = repositorio
+        self.notificador = notificador
 
     def registrar(self, equipamento_id: int, usuario_nome: str,
                   usuario_email: str, dias: int) -> bool:
@@ -40,10 +38,10 @@ class ServicoEmprestimo:
             print("Empréstimo inválido ou já devolvido")
             return
 
-        hoje      = datetime.date.today()
-        atraso    = (hoje - emprestimo.data_devolucao).days
+        hoje        = datetime.date.today()
+        atraso      = (hoje - emprestimo.data_devolucao).days
         equipamento = self.repositorio.buscar_equipamento(emprestimo.equipamento_id)
-        multa     = equipamento.calcular_multa(atraso)
+        multa       = equipamento.calcular_multa(atraso)
 
         self.repositorio.marcar_devolvido(emprestimo_id)
         self.repositorio.marcar_disponivel(emprestimo.equipamento_id)

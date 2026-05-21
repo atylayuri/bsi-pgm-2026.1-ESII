@@ -1,8 +1,13 @@
+from repositories.repositorio_emprestimo import RepositorioEmprestimo
+from services.notificador import Notificador
 from services.servico_emprestimo import ServicoEmprestimo
 
 
 def main():
-    servico = ServicoEmprestimo()
+    repositorio = RepositorioEmprestimo()
+    notificador = Notificador()
+    servico     = ServicoEmprestimo(repositorio, notificador)
+
     while True:
         print("\n1-Registrar  2-Devolver  3-Atrasados  0-Sair")
         opcao = input("Opção: ")
