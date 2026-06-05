@@ -50,6 +50,13 @@ torna esses passos — invisíveis no texto — visíveis ao projetista.
 
 ## Questão 2 — Arquitetura, design e os princípios de decomposição
 
+Valente trata arquitetura no **Cap. 7** como a decomposição do sistema em
+módulos e camadas com responsabilidades distintas e dependências
+controladas; os **critérios** dessa decomposição — coesão, acoplamento e
+ocultamento de informação — são os discutidos no Cap. 5. Esta questão
+articula os dois: o Cap. 7 dá o *o quê* (separar em camadas), o Cap. 5 dá
+o *porquê* (qualidade do design).
+
 ### (a) Definições
 
 **Coesão** é o grau em que os elementos internos de um módulo trabalham
@@ -76,7 +83,10 @@ mudanças sejam locais.
 
 ### (c) Aplicação ao projeto v2.0
 
-A partir do ADR-001 (camadas) e UC01–UC03:
+A decomposição em camadas do ADR-001 é a aplicação direta da visão de
+arquitetura de Valente (**Cap. 7**) — separar o sistema em módulos de
+responsabilidade única e dependência controlada. A partir dela e dos
+UC01–UC03:
 
 - **`models/`:** `Equipamento` e `Emprestimo` como dataclasses. Coesão
   por entidade; ocultamento via tipos explícitos. Sem regras de negócio.
