@@ -1,4 +1,7 @@
-class Notificador:
+from services.interfaces import INotificador
+
+
+class Notificador(INotificador):
     def notificar_emprestimo(self, email: str, data_devolucao) -> None:
         print(f"[EMAIL] {email} — empréstimo até {data_devolucao}")
 
