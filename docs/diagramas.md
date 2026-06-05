@@ -112,3 +112,86 @@ sequenceDiagram
 - `notificar_emprestimo(email, data_devolucao) -> None`
 - `notificar_devolucao(email, multa) -> None`
 - `notificar_atraso(email) -> None`
+
+## Diagrama de classes — v2.0
+
+Visão estática do sistema após a introdução das interfaces `abc.ABC` (A8).
+O `ServicoEmprestimo` depende das **interfaces** (`IRepositorioEmprestimo`,
+`INotificador`), não das classes concretas — é o DIP visível no diagrama:
+as concretas *implementam* o contrato (`..|>`) e o serviço apenas *usa* o
+contrato (`-->`). Isso é o que permite injetar dublês nos testes.
+
+```mermaid
+classDiagram
+    class IRepositorioEmprestimo {
+        <<interface>>
+        +buscar_equipamento(id) Equipamento
+        +salvar_emprestimo(emprestimo) None
+        +buscar_emprestimo(id) Emprestimo
+        +marcar_indisponivel(equip_id) None
+        +marcar_disponivel(equip_id) None
+        +marcar_devolvido(emprestimo_id) None
+        +listar_em_atraso() list
+        +proximo_id_emprestimo() int
+    }
+    class INotificador {
+        <<interface>>
+        +notificar_emprestimo(email, data_devolucao) None
+        +notificar_devolucao(email, multa) None
+        +notificar_atraso(email) None
+    }
+    class ServicoEmprestimo {
+        -repositorio
+        -notificador
+        +registrar(equipamento_id, usuario_nome, usuario_email, dias) bool
+        +devolver(emprestimo_id) None
+        +listar_atrasados() None
+    }
+    class RepositorioEmprestimo {
+        -_equipamentos
+        -_emprestimos
+    }
+    class Notificador {
+        +notificar_emprestimo(email, data_devolucao) None
+        +notificar_devolucao(email, multa) None
+        +notificar_atraso(email) None
+    }
+    class Equipamento {
+        <<abstract>>
+        +id int
+        +nome str
+        +tipo str
+        +disponivel bool
+        +calcular_multa(dias_atraso) float
+    }
+    class Notebook {
+        +calcular_multa(dias_atraso) float
+    }
+    class Projetor {
+        +calcular_multa(dias_atraso) float
+    }
+    class Cabo {
+        +calcular_multa(dias_atraso) float
+    }
+    class Emprestimo {
+        +id int
+        +equipamento_id int
+        +equipamento_nome str
+        +tipo str
+        +usuario_nome str
+        +usuario_email str
+        +data_emprestimo date
+        +data_devolucao date
+        +devolvido bool
+    }
+
+    ServicoEmprestimo --> IRepositorioEmprestimo : usa
+    ServicoEmprestimo --> INotificador : usa
+    RepositorioEmprestimo ..|> IRepositorioEmprestimo : implementa
+    Notificador ..|> INotificador : implementa
+    Equipamento <|-- Notebook
+    Equipamento <|-- Projetor
+    Equipamento <|-- Cabo
+    RepositorioEmprestimo o-- Equipamento : agrega
+    RepositorioEmprestimo o-- Emprestimo : agrega
+```
