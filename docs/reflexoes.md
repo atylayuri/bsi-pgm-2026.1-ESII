@@ -94,3 +94,23 @@ que armazena dados em listas e um `NotificadorFalso` que registra
 chamadas em vez de enviar e-mails. As regras de negócio ficam isoladas
 da infraestrutura, que era exatamente o que o RNF02 exigia e que a
 Aula 5 ainda não resolvia por completo.
+
+## Aula 08 — Testes
+
+O teste de integração `test_fluxo_registrar_devolver_com_componentes_reais`
+captura algo que os testes de unidade não capturam: a **colaboração real**
+entre serviço, repositório e notificador concretos. Os testes de unidade
+trocam o repositório por um `RepositorioFake` e o notificador por um
+`NotificadorSpy`; eles provam que o `ServicoEmprestimo` se comporta certo
+*dado* que as dependências cumprem o contrato. Mas não provam que a
+implementação concreta cumpre esse contrato. O teste de integração fecha
+essa lacuna: se a assinatura de um método do `RepositorioEmprestimo` real
+divergisse do que o serviço espera, só a integração pegaria.
+
+Em compensação, ele captura *menos* do que um teste de unidade quando se
+trata de **casos de borda**. Para verificar a multa de um atraso, o teste
+de unidade manipula diretamente a `data_devolucao` do empréstimo no Fake e
+isola o cálculo; fazer isso com componentes reais seria mais frágil e
+lento, e um eventual erro apontaria para um trecho maior, dificultando o
+diagnóstico. A unidade localiza a falha com precisão; a integração garante
+que as peças se encaixam. As duas se complementam — nenhuma substitui a outra.
